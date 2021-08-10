@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <style>
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>List of passangers</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Flight Number</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if (passengers.length> 0) { %>
+                    <% passengers.forEach((passenger)=> { %>
+                        <tr>
+                            <td>
+                                <%= passenger.name %>
+                            </td>
+                            <td>
+                                <%= passenger.flightNumber %>
+                            </td>
+                            <td>
+                                <%= passenger.time %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                            <% } %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <%=passengers.length%> passenger(s)
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+
+</html>
