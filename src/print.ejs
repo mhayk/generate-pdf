@@ -24,6 +24,10 @@
             text-align: left;
         }
 
+        h1 {
+            font-size: 28px;
+        }
+
         h5 {
             color: #0db8ee;
             line-height: 30px;
@@ -33,6 +37,20 @@
             margin: 0 0 7px;
             padding: 0;
             text-overflow: ellipsis;
+        }
+
+        h1,
+        h2,
+        h6 {
+            font-weight: 100;
+            margin: 0 0 7px;
+        }
+
+        h3,
+        h4,
+        h5 {
+            font-weight: 600;
+            margin: 0 0 7px;
         }
 
         .logo {
@@ -96,7 +114,82 @@
                 <div>VAT No: 217741902</div>
             </td>
             <td style="vertical-align: top; text-align: right">
-                <img src="/images/logo.jpg" alt="KMG logo" class="logo">
+                <img src="https://admin.kaumediagroup.com/img/logo.jpg" alt="KMG logo" class="logo">
+            </td>
+        </tr>
+    </table>
+    <h1>Client Business Information</h1>
+    <table>
+        <tr>
+            <td>
+                <div class="bold">
+                    <label>Business Name</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.advertiser_name %></span>
+            </td>
+            <td>
+                <div class="bold">
+                    <label>Address</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.address_1 %></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bold">
+                    <label>Landline Phone</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.phone_1 %></span>
+            </td>
+            <td>
+                <div class="bold">
+                    <label>City</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.city %></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bold">
+                    <label>Email</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.email %></span>
+            </td>
+            <td>
+                <div class="bold">
+                    <label>Country</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.country %></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bold">
+                    <label>URL</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.company_website %></span>
+            </td>
+            <td>
+                <div class="bold">
+                    <label>Postcode</label>
+                </div>
+            </td>
+            <td>
+                <span class="m-l"><%= advertiser.postal_code %></span>
             </td>
         </tr>
     </table>

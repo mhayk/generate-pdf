@@ -33,6 +33,16 @@ app.get('/', (req, res) => {
             number: '104871',
             status: 1
         },
+        advertiser: {
+            advertiser_name: 'LHH',
+            address_1: '2301 Lucien Way Ste 325',
+            phone_1: '0207 460 7007',
+            city: 'Maitland, FL',
+            email: "shahid.bilal@lhh.com",
+            country: 'United States',
+            company_website: 'https://www.lhh.com/',
+            postal_code: "32751-7020"
+        },
         passengers,
         moment
     }
