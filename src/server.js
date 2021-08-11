@@ -2,7 +2,11 @@ const express = require('express')
 const ejs = require('ejs')
 const path = require('path')
 const pdf = require('html-pdf')
+const moment = require('moment');
+
 const app = express()
+
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 const passengers = [
     {
@@ -24,18 +28,26 @@ const passengers = [
 
 app.get('/', (req, res) => {
     const filePath = path.join(__dirname, 'print.ejs')
-    ejs.renderFile(filePath, { passengers }, (err, html) => {
+    const data = {
+        invoice: {
+            number: '104871',
+            status: 1
+        },
+        passengers,
+        moment
+    }
+    ejs.renderFile(filePath, data, (err, html) => {
         if (err) {
             return res.send('Error')
         }
         const pdfOption = {
             format: 'A4',
         }
-        pdf.create(html, pdfOption).toStream((err, stream) => {
+        pdf.create(html, pdfOption).toFile("report.pdf", (err, data) => {
             if (err) {
                 return res.send('Error')
             }
-            return stream.pipe(res)
+            return res.send(html)
         })
     })
 })

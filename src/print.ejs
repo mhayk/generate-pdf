@@ -5,9 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <title>Invoice | KMG</title>
 
     <style>
+        body {
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
         table {
             width: 100%;
         }
@@ -15,10 +23,83 @@
         th {
             text-align: left;
         }
+
+        h5 {
+            color: #0db8ee;
+            line-height: 30px;
+            margin-bottom: 0;
+            display: inline-block;
+            font-size: 14px;
+            margin: 0 0 7px;
+            padding: 0;
+            text-overflow: ellipsis;
+        }
+
+        .logo {
+            width: 200px;
+            margin-top: 15px;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        .bottomline {
+            border-bottom: 1px solid #e7eaec;
+        }
+
+        .text-red {
+            color: red;
+        }
+
+        .payment-status {
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
+    <table width="100%">
+        <tr>
+            <td align="center" class="bottomline">
+                <h5>
+                    Invoice #<%= invoice.number %>
+                </h5>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td align="left">
+                <div class="bold payment-status">
+                    Payment status: <span class="text-red">
+                        <%- invoice.status=="2" ? "Paid" : 'Pending' %>
+                    </span>
+                </div>
+            </td>
+            <td align="right" class="payment-status">
+                <small>Date: <%- invoice.date_of_paid ? invoice.date_of_paid : moment().format("YYYY-MM-DD") %></small>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <h1>KAU Media Group Ltd</h1>
+                <div>The Aircraft Factory</div>
+                <div>100 Cambridge Grove</div>
+                <div>Hammersmith</div>
+                <div>London, W6 0LE</div>
+                <div> +44 (0) 203 368 8556</div>
+                <div>accounts@kaumediagroup.com </div>
+                <div>Company No: 9669756</div>
+                <div>VAT No: 217741902</div>
+            </td>
+            <td style="vertical-align: top; text-align: right">
+                <img src="/images/logo.jpg" alt="KMG logo" class="logo">
+            </td>
+        </tr>
+    </table>
     <div>
         <h1>List of passangers</h1>
         <table>
