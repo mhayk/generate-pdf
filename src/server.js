@@ -43,6 +43,15 @@ app.get('/', (req, res) => {
             company_website: 'https://www.lhh.com/',
             postal_code: "32751-7020"
         },
+        service: {
+            service_name: 'PPC',
+            setup_fee: 0.00,
+            mnmg_fee: 0.00,
+            budget: 0.00,
+            subtotal: 0.00,
+            vat: 0.00,
+            total: 0.00
+        },
         passengers,
         moment
     }

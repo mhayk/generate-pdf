@@ -53,6 +53,19 @@
             margin: 0 0 7px;
         }
 
+        .row-head {
+            line-height: 150%;
+            vertical-align: top;
+            font-weight: 700;
+        }
+
+        .row {
+            background-color: #f9f9f9;
+            border-top: 1px solid #e7eaec;
+            line-height: 150%;
+            vertical-align: middle;
+        }
+
         .logo {
             width: 200px;
             margin-top: 15px;
@@ -193,42 +206,54 @@
             </td>
         </tr>
     </table>
-    <div>
-        <h1>List of passangers</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Flight Number</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%if (passengers.length> 0) { %>
-                    <% passengers.forEach((passenger)=> { %>
-                        <tr>
-                            <td>
-                                <%= passenger.name %>
-                            </td>
-                            <td>
-                                <%= passenger.flightNumber %>
-                            </td>
-                            <td>
-                                <%= passenger.time %>
-                            </td>
-                        </tr>
-                        <% }); %>
-                            <% } %>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">
-                        <%=passengers.length%> passenger(s)
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+    <h1>Order Summary</h1>
+    <table width="100%">
+        <tr>
+            <td align="left" width="17%" class="row-head">Product/Service</td>
+            <td align="left" width="11%" class="row-head">Setup Fee</td>
+            <td align="left" width="20%" class="row-head">Tracking&Tech Fee</td>
+            <td align="left" width="42%" class="row-head">Media budget, Management & Optimisation</td>
+            <td align="left" width="10%" class="row-head">Line Total</td>
+        </tr>
+        <tr>
+            <td class="row" align="left">
+                <%= service.service_name %>
+            </td>
+            <td class="row" align="left">
+                £<%= service.setup_fee %>
+            </td>
+            <td class="row" align="left">
+                £<%= service.mnmg_fee %>
+            </td>
+            <td class="row" align="left">
+                £<%= service.budget %>
+            </td>
+            <td class="row" align="left">
+                $<%= service.subtotal %>
+            </td>
+        </tr>
+        <tr>
+            <td class="totals"></td>
+            <td class="totals"></td>
+            <td class="totals"></td>
+            <td class="totals" align="right">Sub Total</td>
+            <td class="totals" align="left">£<%= service.subtotal %></td>
+        </tr>
+        <tr>
+            <td class="totals"></td>
+            <td class="totals"></td>
+            <td class="totals"></td>
+            <td class="totals" align="right">VAT</td>
+            <td class="totals" align="left">£<%= service.vat %></td>
+        </tr>
+        <tr>
+            <td class="totals bottomline"></td>
+            <td class="totals bottomline"></td>
+            <td class="totals bottomline"></td>
+            <td class="totals bottomline" align="right">Total</td>
+            <td class="totals bottomline" align="left">£<%= service.total %></td>
+        </tr>
+    </table>
 </body>
 
 </html>
