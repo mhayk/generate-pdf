@@ -8,24 +8,6 @@ const app = express()
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-const passengers = [
-    {
-        name: 'Alana',
-        flightNumber: 7859,
-        time: "18h00"
-    },
-    {
-        name: 'Alice',
-        flightNumber: 7859,
-        time: "18h00"
-    },
-    {
-        name: 'Mhayk',
-        flightNumber: 7859,
-        time: "18h00"
-    }
-]
-
 app.get('/', (req, res) => {
     const filePath = path.join(__dirname, 'print.ejs')
     const data = {
@@ -35,7 +17,7 @@ app.get('/', (req, res) => {
         },
         advertiser: {
             advertiser_name: 'LHH',
-            address_1: '2301 Lucien Way Ste 325',
+            address_1: 'Blackbrook House, Dorking Business Park, Station Road',
             phone_1: '0207 460 7007',
             city: 'Maitland, FL',
             email: "shahid.bilal@lhh.com",
@@ -52,7 +34,6 @@ app.get('/', (req, res) => {
             vat: 0.00,
             total: 0.00
         },
-        passengers,
         moment
     }
     ejs.renderFile(filePath, data, (err, html) => {
@@ -61,12 +42,33 @@ app.get('/', (req, res) => {
         }
         const pdfOption = {
             format: 'A4',
+            height: '11.7in',
+            width: '8.27in',
+            // header: {
+            //     height: '8mm'
+            // },
+            // footer: {
+            //     height: '20mm'
+            // }
+
         }
-        pdf.create(html, pdfOption).toFile("report.pdf", (err, data) => {
+        // pdf.create(html, pdfOption).toFile("report.pdf", (err, data) => {
+        //     if (err) {
+        //         return res.send('Error')
+        //     }
+        //     return res.send(html)
+        // })
+
+        pdf.create(html, pdfOption).toStream((err, pdfStream) => {
             if (err) {
                 return res.send('Error')
             }
-            return res.send(html)
+            
+            pdfStream.on('end', () => {
+                return res.end()
+            })
+
+            pdfStream.pipe(res)
         })
     })
 })

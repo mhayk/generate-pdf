@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- <link href="http://admin.kau/css/bootstrap.min.css" rel="stylesheet" > -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
     <title>Invoice | KMG</title>
@@ -13,19 +14,73 @@
     <style>
         body {
             font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 12px;
+            /*                font-family: 'Helvetica';*/
+            font-size: 9px;
+            font-weight: 300;
+
+            margin: 22px 36px;
         }
 
         table {
-            width: 100%;
+            border-collapse: collapse;
         }
 
-        th {
-            text-align: left;
+        .invoice-number {
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
-        h1 {
-            font-size: 28px;
+        .invoice-company-section {
+            margin-top: 8px;
+        }
+
+        .invoice-company-section h1 {
+            line-height: 32px;
+        }
+
+        .company div {
+            line-height: 16px;
+        }
+
+        .invoice-client-section {
+            margin-top: 4px;
+        }
+
+        .totals {
+            border-top: 1px solid #e7eaec;
+            line-height: 150%;
+            padding-right: 8px;
+            vertical-align: middle;
+        }
+
+        .row {
+            background-color: #f9f9f9;
+            border-top: 1px solid #e7eaec;
+            line-height: 150%;
+            vertical-align: middle;
+        }
+
+        .row-head {
+            line-height: 150%;
+            vertical-align: top;
+            font-weight: 700;
+        }
+
+        .logo {
+            /* width: 200px; */
+            /* margin-top: 15px; */
+            width: 140px;
+            /* margin-top: 15px; */
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .form-group label {
+            width: 150px;
+            display: inline-block;
+            font-weight: 700;
         }
 
         h5 {
@@ -33,10 +88,23 @@
             line-height: 30px;
             margin-bottom: 0;
             display: inline-block;
-            font-size: 14px;
+            font-size: 10px;
             margin: 0 0 7px;
             padding: 0;
             text-overflow: ellipsis;
+        }
+
+        h4 {
+            font-size: 12px;
+        }
+
+        h1 {
+            /* font-size: 28px; */
+            font-size: 22px;
+        }
+
+        .bottomline {
+            border-bottom: 1px solid #e7eaec;
         }
 
         h1,
@@ -53,30 +121,12 @@
             margin: 0 0 7px;
         }
 
-        .row-head {
-            line-height: 150%;
-            vertical-align: top;
-            font-weight: 700;
-        }
-
-        .row {
-            background-color: #f9f9f9;
-            border-top: 1px solid #e7eaec;
-            line-height: 150%;
-            vertical-align: middle;
-        }
-
-        .logo {
-            width: 200px;
-            margin-top: 15px;
-        }
-
         .bold {
             font-weight: 700;
         }
 
-        .bottomline {
-            border-bottom: 1px solid #e7eaec;
+        .margintop {
+            margin-top: 30px;
         }
 
         .text-red {
@@ -84,174 +134,247 @@
         }
 
         .payment-status {
-            font-size: 16px;
+            font-size: 13px;
         }
+
     </style>
 </head>
 
 <body>
-    <table width="100%">
+    <table width="100%" class="invoice-header">
         <tr>
             <td align="center" class="bottomline">
-                <h5>
+                <h5 class="bold invoice-number">
                     Invoice #<%= invoice.number %>
                 </h5>
             </td>
         </tr>
     </table>
-    <table>
-        <tr>
-            <td align="left">
-                <div class="bold payment-status">
-                    Payment status: <span class="text-red">
-                        <%- invoice.status=="2" ? "Paid" : 'Pending' %>
+    <div class="invoice-subheader">
+        <table width="100%">
+            <tr>
+                <td align="left">
+                    <div class="bold payment-status">
+                        Payment status: <span class="text-red">
+                            <%- invoice.status=="2" ? "Paid" : 'Pending' %>
+                        </span>
+                    </div>
+                </td>
+                <td align="right" class="payment-status">
+                    <small>Date: <%- invoice.date_of_paid ? invoice.date_of_paid : moment().format("YYYY-MM-DD") %>
+                    </small>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="invoice-company-section">
+        <table width="100%">
+            <tr>
+                <td class="company">
+                    <h1>KAU Media Group Ltd</h1>
+                    <div>The Aircraft Factory</div>
+                    <div>100 Cambridge Grove</div>
+                    <div>Hammersmith</div>
+                    <div>London, W6 0LE</div>
+                    <div>+44 (0) 203 368 8556</div>
+                    <div>accounts@kaumediagroup.com </div>
+                    <div>Company No: 9669756</div>
+                    <div>VAT No: 217741902</div>
+                </td>
+                <td style="vertical-align: top; text-align: right;">
+                    <img src="https://admin.kaumediagroup.com/img/logo.jpg" alt="KMG logo" class="logo">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="invoice-client-section">
+        <h1>Client Business Information</h1>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Business Name</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.advertiser_name %>
                     </span>
-                </div>
-            </td>
-            <td align="right" class="payment-status">
-                <small>Date: <%- invoice.date_of_paid ? invoice.date_of_paid : moment().format("YYYY-MM-DD") %></small>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td>
-                <h1>KAU Media Group Ltd</h1>
-                <div>The Aircraft Factory</div>
-                <div>100 Cambridge Grove</div>
-                <div>Hammersmith</div>
-                <div>London, W6 0LE</div>
-                <div> +44 (0) 203 368 8556</div>
-                <div>accounts@kaumediagroup.com </div>
-                <div>Company No: 9669756</div>
-                <div>VAT No: 217741902</div>
-            </td>
-            <td style="vertical-align: top; text-align: right">
-                <img src="https://admin.kaumediagroup.com/img/logo.jpg" alt="KMG logo" class="logo">
-            </td>
-        </tr>
-    </table>
-    <h1>Client Business Information</h1>
-    <table>
-        <tr>
-            <td>
-                <div class="bold">
-                    <label>Business Name</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.advertiser_name %></span>
-            </td>
-            <td>
-                <div class="bold">
-                    <label>Address</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.address_1 %></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="bold">
-                    <label>Landline Phone</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.phone_1 %></span>
-            </td>
-            <td>
-                <div class="bold">
-                    <label>City</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.city %></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="bold">
-                    <label>Email</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.email %></span>
-            </td>
-            <td>
-                <div class="bold">
-                    <label>Country</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.country %></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="bold">
-                    <label>URL</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.company_website %></span>
-            </td>
-            <td>
-                <div class="bold">
-                    <label>Postcode</label>
-                </div>
-            </td>
-            <td>
-                <span class="m-l"><%= advertiser.postal_code %></span>
-            </td>
-        </tr>
-    </table>
-    <h1>Order Summary</h1>
+                </td>
+                <td>
+                    <div class="bold">
+                        <label>Address</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.address_1 %>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Landline Phone</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.phone_1 %>
+                    </span>
+                </td>
+                <td>
+                    <div class="bold">
+                        <label>City</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.city %>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Email</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.email %>
+                    </span>
+                </td>
+                <td>
+                    <div class="bold">
+                        <label>Country</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.country %>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>URL</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.company_website %>
+                    </span>
+                </td>
+                <td>
+                    <div class="bold">
+                        <label>Postcode</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">
+                        <%= advertiser.postal_code %>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="invoice-summary-section">
+        <h1>Order Summary</h1>
+        <table width="100%">
+            <tr>
+                <td align="left" width="17%" class="row-head">Product/Service</td>
+                <td align="left" width="11%" class="row-head">Setup Fee</td>
+                <td align="left" width="20%" class="row-head">Tracking&Tech Fee</td>
+                <td align="left" width="42%" class="row-head">Media budget, Management & Optimisation</td>
+                <td align="left" width="10%" class="row-head">Line Total</td>
+            </tr>
+            <tr>
+                <td class="row" align="left">
+                    <%= service.service_name %>
+                </td>
+                <td class="row" align="left">
+                    £<%= service.setup_fee %>
+                </td>
+                <td class="row" align="left">
+                    £<%= service.mnmg_fee %>
+                </td>
+                <td class="row" align="left">
+                    £<%= service.budget %>
+                </td>
+                <td class="row" align="left">
+                    £<%= service.subtotal %>
+                </td>
+            </tr>
+            <tr>
+                <td class="totals"></td>
+                <td class="totals"></td>
+                <td class="totals"></td>
+                <td class="totals" align="right">Sub Total</td>
+                <td class="totals" align="left">£<%= service.subtotal %>
+                </td>
+            </tr>
+            <tr>
+                <td class="totals"></td>
+                <td class="totals"></td>
+                <td class="totals"></td>
+                <td class="totals" align="right">VAT</td>
+                <td class="totals" align="left">£<%= service.vat %>
+                </td>
+            </tr>
+            <tr>
+                <td class="totals bottomline"></td>
+                <td class="totals bottomline"></td>
+                <td class="totals bottomline"></td>
+                <td class="totals bottomline" align="right">Total</td>
+                <td class="totals bottomline" align="left">£<%= service.total %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="invoice-payment-section">
+        <h1>Payment Details</h1>
+        <table width="50%">
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Account name</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">KAU Media Group Ltd</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Sort Code</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">20-35-93</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bold">
+                        <label>Account Number</label>
+                    </div>
+                </td>
+                <td>
+                    <span class="m-l">60221945</span>
+                </td>
+            </tr>
+        </table>
+    </div>
     <table width="100%">
         <tr>
-            <td align="left" width="17%" class="row-head">Product/Service</td>
-            <td align="left" width="11%" class="row-head">Setup Fee</td>
-            <td align="left" width="20%" class="row-head">Tracking&Tech Fee</td>
-            <td align="left" width="42%" class="row-head">Media budget, Management & Optimisation</td>
-            <td align="left" width="10%" class="row-head">Line Total</td>
-        </tr>
-        <tr>
-            <td class="row" align="left">
-                <%= service.service_name %>
+            <td align="center">
+                <div class="margintop">
+                    If you have any questions about this invoice please email accounts@kaumediagroup.com
+                </div>
             </td>
-            <td class="row" align="left">
-                £<%= service.setup_fee %>
-            </td>
-            <td class="row" align="left">
-                £<%= service.mnmg_fee %>
-            </td>
-            <td class="row" align="left">
-                £<%= service.budget %>
-            </td>
-            <td class="row" align="left">
-                $<%= service.subtotal %>
-            </td>
-        </tr>
-        <tr>
-            <td class="totals"></td>
-            <td class="totals"></td>
-            <td class="totals"></td>
-            <td class="totals" align="right">Sub Total</td>
-            <td class="totals" align="left">£<%= service.subtotal %></td>
-        </tr>
-        <tr>
-            <td class="totals"></td>
-            <td class="totals"></td>
-            <td class="totals"></td>
-            <td class="totals" align="right">VAT</td>
-            <td class="totals" align="left">£<%= service.vat %></td>
-        </tr>
-        <tr>
-            <td class="totals bottomline"></td>
-            <td class="totals bottomline"></td>
-            <td class="totals bottomline"></td>
-            <td class="totals bottomline" align="right">Total</td>
-            <td class="totals bottomline" align="left">£<%= service.total %></td>
         </tr>
     </table>
 </body>
